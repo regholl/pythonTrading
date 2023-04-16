@@ -1,0 +1,22 @@
+Abstract:
+
+Build a Portfolio Viewer in Python using:
+
+- tda-api
+- TD Ameritrade API
+
+To Perform the following tasks:
+
+- Show Individual Stock Data for 1 Stock
+- Show Stock Data for multiple Stocks
+- Output Stock Data to CSV/XLSX
+- View Personal Portfolio
+- Create Local Watchlist CSV
+- Graph Portfolio Performance
+- Buy a Stock
+- Sell a Stock
+
+
+Use Classes to make the portfolio:
+
+Stock, Portfolio, Trade
