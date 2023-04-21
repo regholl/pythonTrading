@@ -1,0 +1,5 @@
+Portfolio Notes: Things to Try:
+
+MIT Opencourseware Intro to Finance:
+	- Ch7/8: Intro to Risks and Risk Analytics
+	- Ch 8: Portfolio Theory

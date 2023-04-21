@@ -1,0 +1,17 @@
+When TDA API Works Again:
+
+1. Create a new Application in the TD/Schwab API and add the relevant data
+
+2. Current(April 2023) Guide on Installing tda-api
+
+	pip install tda-api
+	
+	in projects...
+	import tda
+	
+3. Authentication and Client Creation
+	a. OAuth Refresher
+	
+	https://tda-api.readthedocs.io/en/latest/auth.html
+	
+	
