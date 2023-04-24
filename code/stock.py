@@ -28,24 +28,26 @@
 """
 
 class Stock:
-	def __init__(self, data): # use a DS with keys for the parameter data
-		self.name = ''
-		self.ticker = ''
-		self.price = ''
-		self.num_shares = ''
-		self.tot_val = self.price * self.num_shares
-		self.price_basis = ''
-		self.tot_chg_usd = ''
-		self.tot_chg_pct = ''
-		self.day_chg_usd = ''
-		self.day_chg_pct = ''
-		self.pe_ratio = ''
-		self.eps = ''
-		self.divs_earned = ''
+	def __init__(self, name, symbol, pps, ns, tv, pp, dpla, dplp, tpla, tplp, pe, eps, de, sector, industry, style): # use a DS with keys for the parameter data
+		# This is included in the old program
+		self.symbol = symbol # Ticker Symbol
+		self.pps = pps # Price Per Share
+		self.ns = ns # Number of Shares
+		self.tv = tv # Total Value of Shares
+		self.pp = pp # Purchase Price of the Shares
+		self.dpla = dpla # P/L Amount for the Day
+		self.dplp = dplp # P/L Percentage for the Day
 
-		self.sector = ''
-		self.industry = ''
-		self.style = ''
+		# This is not covered in the old program, find dict keys! TODO
+		self.name = name # Name of the Stock
+		self.tpla = tpla # TotaL P/L Amount for the Day
+		self.tplp = tplp # Total P/L Percentage
+		self.pe = pe # PE Ratio
+		self.eps = eps # Earnings per Share
+		self.de = de # Dividends Earned
+		self.sector = sector
+		self.industry = industry
+		self.style = style
 
 	def to_string(self):
 		ret = ''
@@ -79,10 +81,14 @@ class Stock:
 	# TODO: put the stock in excel-friendly format
 	def to_excel(self): 
 		pass
+
+	# TODO: either create a table for the position in Excel or update the data
+	def to_sql(self):
+		pass
 		
 # OUT OF CLASS
 
 # Flow:
 # API->json->object->CSV/SQL
 
-def json_to_obj():return
+def json_to_obj(): pass
