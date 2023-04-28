@@ -1,3 +1,66 @@
+############################################################################################################
+# BUILD.PY
+############################################################################################################
+# This is the main Program for connecting to the TDA API
+import functions as f
+
+cin = input('do you want to see your stocks? \ny/n:')
+if cin == 'y' or cin == 'Y' or cin == 'yes' or cin == 'Yes' or cin == 'YES':
+	curr_client = f.login()
+	print(f.get_all_positions(curr_client))
+elif cin == 'n' or cin == 'N' or cin == 'no' or cin == 'No' or cin == 'NO':
+	print('Ok! Just run ./stonks.sh from the root folder to view them!\n')
+	exit()
+else:
+	print("You can't answer a simple yes/no question, you shouldn't be trading stocks!")
+	exit()
+
+############################################################################################################
+
+############################################################################################################
+# STOCK.PY
+############################################################################################################
+class Stock:
+	def __init__(self, symbol, pps, ns, tv, pp, pla, plp):
+		self.symbol = symbol # Ticker Symbol
+		self.pps = pps # Price Per Share
+		self.ns = ns # Number of Shares
+		self.tv = tv # Total Value of Shares
+		self.pp = pp # Purchase Price of the Shares
+		self.pla = pla # P/L Amount for the Day
+		self.plp = plp # P/L Percentage for the Day
+
+############################################################################################################
+
+##########################################################################################
+# FUNCTIONS.PY
+##########################################################################################
+
+# This will contain Function Definitions for Connecting to the TDA API
+
+# Imports from my Own Files
+import config as cf
+
+# Imports from Other Libraries
+from tda import auth, client
+import json
+
+##########################################################################################
+# Connect to the API and Login with a Token or create the Token
+##########################################################################################
+def login():
+	try:
+		c = auth.client_from_token_file(cf.token_path, cf.api_key)
+	except FileNotFoundError:
+		from selenium import webdriver
+		with webdriver.Firefox(executable_path = r'/opt/homebrew/bin/geckodriver') as driver:
+			c = auth.client_from_login_flow(driver, cf.api_key, cf.redirect_uri, cf.token_path)
+	
+	return c
+
+##########################################################################################
+
+
 ##########################################################################################
 # Return all the Positions from an account as a String to Print in the Terminal
 def get_all_positions(c):
@@ -94,3 +157,6 @@ def convert_pos_dict_to_string(k):
 	to_return += 'Bought At: ' + purchase_price + '\nP/L Amt.: ' + p_l_amt + '\n'
 	to_return += 'P/L %: ' + p_l_percentage
 	return to_return
+	
+	
+##########################################################################################

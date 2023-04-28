@@ -2,6 +2,8 @@
 #
 # A Class to serve as a Collection of Stocks
 
+import csv
+
 class Portfolio:
     def __init__(self, stocks): #input is a Disctionary of Stock Objects from the tda-api JSON
         self.stocks = stocks
@@ -23,8 +25,10 @@ class Portfolio:
             header = ['Date', 'Symbol', 'Name', 'Price Per Share', 'Number of Shares', 'Total Value', 'Purchase Price', 'Daily Profit/Loss Amount', 'Daily Profit/Loss Percentage', 'Total Profit/Loss Amount', 'Total Profit/Loss Percentage', 'PE Ratio', 'Earnings Per Share', 'Dividends Earned', 'Sector', 'Industry', 'Style']
             writer = csv.DictWriter(file, fieldnames = header)
 
-            for s in stocks:
+            for s in self.stocks:
                 writer.writerow(s.to_csv_row())
+
+        file.close()
 
         return 0 # idk what to return here TODO
 

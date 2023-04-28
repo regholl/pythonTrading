@@ -1,0 +1,133 @@
+From ChatGPT:
+
+how would the database look if it only stored a portfolio of positions and orders?
+
+If the database only needs to store a portfolio of positions and orders, the design will be a bit different from the previous example. We'll need to create tables to store information about positions and orders.
+
+Here's an example of how we might structure these tables:
+
+securities
+- id (primary key)
+- symbol
+- name
+- security_type
+- currency
+
+positions
+- id (primary key)
+- security_id (foreign key)
+- account_id (foreign key)
+- quantity
+- average_price
+
+orders
+- id (primary key)
+- security_id (foreign key)
+- account_id (foreign key)
+- order_type
+- order_status
+- quantity
+- price
+- created_at
+- updated_at
+
+In this design, the securities table stores information about securities such as stocks, ETFs, or options. The positions table stores the holdings for each account and security, including the quantity of shares and the average price. The orders table stores all of the orders submitted to the system, including the type of order, the quantity, the price, and the time the order was created and updated.
+
+The relationship between securities and positions is one-to-many, meaning one security can have many positions, and the relationship between securities and orders is also one-to-many, meaning one security can have many orders. The relationship between positions and orders is also one-to-many, meaning one position can have many orders.
+
+I hope this helps you understand how to design a SQL database for storing a portfolio of positions and orders. Let me know if you have any further questions!
+
+
+Asked ChatGPT how to connect SQL and python and found a library to use: SQLalchemy
+
+how would I make these into python objects that are linked with the sql database
+
+To create Python objects that are linked with the SQL database, you can use an object-relational mapping (ORM) framework such as SQLAlchemy. SQLAlchemy allows you to define Python classes that map to tables in the database, and provides an interface for interacting with the database using Python code.
+
+Here's an example of how you might define the classes for the database schema we designed earlier:
+
+python
+
+from sqlalchemy import create_engine, Column, Integer, String, Float, ForeignKey
+from sqlalchemy.orm import relationship, backref, sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
+# create an engine to connect to the database
+engine = create_engine('postgresql://username:password@localhost/database_name')
+
+# create a session factory for creating sessions
+Session = sessionmaker(bind=engine)
+
+# create a base class for declarative ORM
+Base = declarative_base()
+
+# define the Company class
+class Company(Base):
+    __tablename__ = 'companies'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    industry = Column(String)
+    headquarters = Column(String)
+
+    stocks = relationship('Stock', backref='company')
+
+# define the Stock class
+class Stock(Base):
+    __tablename__ = 'stocks'
+
+    id = Column(Integer, primary_key=True)
+    symbol = Column(String)
+    price = Column(Float)
+
+    company_id = Column(Integer, ForeignKey('companies.id'))
+
+    trades = relationship('Trade', backref='stock')
+
+# define the Trade class
+class Trade(Base):
+    __tablename__ = 'trades'
+
+    id = Column(Integer, primary_key=True)
+    quantity = Column(Integer)
+    trade_date = Column(String)
+
+    stock_id = Column(Integer, ForeignKey('stocks.id'))
+
+# create the tables in the database
+Base.metadata.create_all(engine)
+
+In this example, we define the Company, Stock, and Trade classes using SQLAlchemy's declarative syntax. We define the relationships between the classes using relationship and backref statements.
+
+To interact with the database using these classes, you can create a session and use it to query the database:
+
+python
+
+# create a session
+session = Session()
+
+# create a new company
+apple = Company(name='Apple Inc.', industry='Technology', headquarters='Cupertino, CA')
+session.add(apple)
+
+# create a new stock
+aapl = Stock(symbol='AAPL', price=135.00, company=apple)
+session.add(aapl)
+
+# create a new trade
+trade = Trade(quantity=100, trade_date='2023-04-27', stock=aapl)
+session.add(trade)
+
+# commit the changes to the database
+session.commit()
+
+# query the database for all trades involving AAPL
+aapl_trades = session.query(Trade).join(Stock).filter(Stock.symbol == 'AAPL').all()
+
+# print the trades
+for trade in aapl_trades:
+    print(trade.quantity, trade.trade_date)
+
+In this example, we create a new company, stock, and trade, and then commit the changes to the database using the session's commit method. We then query the database for all trades involving AAPL using the query method, and print the results.
+
+I hope this helps you understand how to create Python objects that are linked with an SQL database using SQLAlchemy!

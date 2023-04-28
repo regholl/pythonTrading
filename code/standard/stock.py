@@ -27,8 +27,10 @@
     - style
 """
 
+import csv
+
 class Stock:
-	def __init__(self, name, symbol, pps, ns, tv, pp, dpla, dplp, tpla, tplp, pe, eps, de, sector, industry, style): # use a DS with keys for the parameter data
+	def __init__(self, name, symbol, date, pps, ns, tv, pp, dpla, dplp, tpla, tplp, pe, eps, de, sector, industry, style): # use a DS with keys for the parameter data
 		# This is included in the old program
 		self.symbol = symbol # Ticker Symbol
 		self.pps = pps # Price Per Share
@@ -40,6 +42,7 @@ class Stock:
 
 		# This is not covered in the old program, find dict keys! TODO
 		self.name = name # Name of the Stock
+		self.date = date # date the API was accessed
 		self.tpla = tpla # TotaL P/L Amount for the Day
 		self.tplp = tplp # Total P/L Percentage
 		self.pe = pe # PE Ratio
@@ -51,41 +54,81 @@ class Stock:
 
 	def to_string(self):
 		ret = ''
-		ret += 'NAME: ' + str(self.name) + ' | ' + str(self.ticker) + '; ' + str(self.tot_chg_pct) + ', $' + str(self.tot_chg_usd) + '\n'
+		ret += 'NAME: ' + str(self.name) + ' | ' + str(self.symbol) + '; ' + str(self.tplp) + ', $' + str(self.tpla) + '\n'
 
-		ret += 'PRICE: $' + str(self.price) + ' | '
+		ret += 'PRICE: $' + str(self.pps) + ' | '
 		# add an up or down depending on day performance
-		if self.day_chg_usd<0:
+		if self.dpla<0:
 			ret += '(⬇) '
-		elif self.day_chg_usd==0:
+		elif self.dpla==0:
 			ret += '(-) '
 		else:
 			ret += '(⬆) '
-		ret += str(self.day_chg_pct) + ', $' + str(self.day_chg_usd) + '\n'
+		ret += str(self.dplp) + ', $' + str(self.dpla) + '\n'
 
-		ret += 'INIT: $' + str(self.price_basis) + ' | '
-		if self.tot_chg_usd<0:
+		ret += 'INIT: $' + str(self.pp) + ' | '
+		if self.tpla<0:
 			ret += '(⬇) '
-		elif self.tot_chg_usd==0:
+		elif self.tpla==0:
 			ret += '(-) '
 		else:
 			ret += '(⬆)'
 
-		ret += str(self.day_chg_pct) + ', $' + str(self.day_chg_usd) + '\n'
-		ret += 'NUM_SHARES: ' + str(self.num_shares) + '\n'
-		ret += 'PE RATIO: ' + str(self.pe_ratio) + ' | EPS' + str(self.eps) + '\n'
-		ret += 'DIVIDENDS EARNED: ' + str(self.divs_earned)
+		ret += str(self.dplp) + ', $' + str(self.dpla) + '\n'
+		ret += 'NUM_SHARES: ' + str(self.ns) + '\n'
+		ret += 'PE RATIO: ' + str(self.pe) + ' | EPS: ' + str(self.eps) + '\n'
+		ret += 'DIVIDENDS EARNED: ' + str(self.de)
 
 		return ret
 	
 	# TODO: put the stock in excel-friendly format
-	def to_excel(self): 
-		pass
+	def to_csv_row(self): 
+		to_return = dict()
 
-	# TODO: either create a table for the position in Excel or update the data
-	def to_sql(self):
-		pass
+		# TABLE FORMAT
+		'''
+		- Symbol
+		- name
+		- pps
+		- ns
+		- tv
+		- pp
+		- dpla
+		- dplp
+		- tpla
+		- tplp
+		- pe
+		- eps
+		- de
+		- sector
+		- industry
+		- style
+		'''
+		to_return['Date'] = self.date
+		to_return['Symbol'] = self.symbol
+		to_return['Name'] = self.name
+		to_return['Price Per Share'] = self.pps
+		to_return['Number of Shares'] = self.ns
+		to_return['Total Value'] = self.tv
+		to_return['Purchase Price'] = self.pp
+		to_return['Daily Profit/Loss Amount'] = self.dpla
+		to_return['Daily Profit/Loss Percentage'] = self.dplp
+		to_return['Total Profit/Loss Amount'] = self.tpla
+		to_return['Total Profit/Loss Percentage'] = self.tplp
+		to_return['PE Ratio'] = self.pe
+		to_return['Earnings Per Share'] = self.eps
+		to_return['Dividends Earned'] = self.de
+		to_return['Sector'] = self.sector
+		to_return['Industry'] = self.industry
+		to_return['Style'] = self.style
 		
+		
+		return to_return
+	
+	# Update SQL with the most recent API call
+	def update_sql(self):
+		pass
+	
 # OUT OF CLASS
 
 # Flow:

@@ -20,3 +20,36 @@ To Perform the following tasks:
 Use Classes to make the portfolio:
 
 Stock, Portfolio, Trade
+- every class has a constructor, getters/setters, and a toString/CSV/SQL method
+
+TDAmeritrade Official API: https://developer.tdameritrade.com/apis
+**note: statement from TDA on Schwab Integration: https://developer.tdameritrade.com/content/trader-api-schwab-integration-guide
+
+Data to Track:
+- price
+- bid
+- ask
+- num shares
+- tot val of shares
+- price bought at
+- change in dollars
+- change in %
+- day change in dollars
+- day change in %
+- how long til you can cash out 1/2 and break even
+- how long til you can cash out 1/3 and break even
+- how long til you can cash out 1/4 and break even
+- have I lost more than 1/2 my initial investment
+- have I lost more than 2/3 my initial investment
+- have I lost more than 3/4 my initial investment
+- how much have I earned in dividends(cash and stock represented in $$$ with %s given)
+- market cap
+- eps
+- pe ratio
+- sort stocks by:
+    - sector
+    - industry
+    - style
+
+
+
