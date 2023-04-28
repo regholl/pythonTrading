@@ -30,7 +30,7 @@ class Portfolio:
 
         file.close()
 
-        return 0 # idk what to return here TODO
+        return 1 # idk what to return here TODO
 
         
 
