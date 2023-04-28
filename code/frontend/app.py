@@ -1,15 +1,30 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__) # Creates an instance of the Flask Object
 
 
 @app.route('/') # -> Specifies a webpage with the given uri(i = index), returns the object returned from the function
 def home():
-    return render_template('home.html')
+    print('1')
+    return render_template('homepage.html')
 
-@app.route('/landing-page/')
-def layout():
-    return render_template('layout.html')
+# Homepage: Controlling the Buttons - Navigates to the Titled Page on the button
+@app.route('/', methods=['POST'])
+def ui_nav_buttons_hp(): # UI Navigation Buttons Homepage
+    if request.method == 'POST': 
+        if request.form.get('positions') == 'Positions': # Positions Button
+            print('a')
+            return render_template('positions.html')
+        elif request.form.get('orders') == 'Orders': # Orders Button
+            print('2')
+            return render_template('orders.html')
+        elif request.form.get('settings') == 'Settings':
+            return render_template('settings.html')
+        else:
+            print('step in at line 16')
+            pass
+    else:
+        return render_template('home.html')
 
 
 if __name__ == '__main__': # If this is the main method

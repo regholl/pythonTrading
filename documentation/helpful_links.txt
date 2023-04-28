@@ -1,0 +1,14 @@
+Frontend:
+    CSS:
+    - Style Guide: https://css-tricks.com/css-style-guides/
+    - Primer: https://primer.style/
+
+    HTML:
+    - GUI Webpage Builder: https://designer.igniteui.com/
+        - build website here and export
+
+    Flask:
+    - Flask Project Hierarchy: https://realpython.com/python-application-layouts/#web-application-layouts
+
+Backend:
+SQL:

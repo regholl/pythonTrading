@@ -1,0 +1,7 @@
+Check Github Issues!
+
+Flask:
+- Build HTML Files in /standard/ then paste them into
+    the flask project files
+
+- Connect Elements(Buttons, Mutable Text) with app.py
