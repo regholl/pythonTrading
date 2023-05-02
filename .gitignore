@@ -65,6 +65,19 @@ db.sqlite3-journal
 instance/
 .webassets-cache
 
+.venv/
+
+*.pyc
+__pycache__/
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+dist/
+build/
+*.egg-info/
+
 # Scrapy stuff:
 .scrapy
 
