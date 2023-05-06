@@ -1,20 +1,31 @@
-import os
 import sqlite3
-
 import click
-from flask import current_app, g
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
 
-db = SQLAlchemy()
-current_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(os.path.join(current_app.instance_path, 'flaskr.sqlite'))
+from flask import current_app, g
+
+def init_db():
+    db = get_db()
+
+    with current_app.open_resource('schema.sql') as f:
+        db.executescript(f.read().decode('utf8'))
+
+
+@click.command('init-db')
+def init_db_command():
+    """Clear the existing data and create new tables."""
+    init_db()
+    click.echo('Initialized the database.')
 
 def get_db():
-    if not hasattr(g, 'db'):
-        db_uri = current_app.config['SQLALCHEMY_DATABASE_URI']
-        engine = create_engine(db_uri)
-        g.db = engine.connect()
+    if 'db' not in g:
+        g.db = sqlite3.connect(
+            current_app.config['DATABASE'],
+            detect_types=sqlite3.PARSE_DECLTYPES
+        )
+        g.db.row_factory = sqlite3.Row
+
     return g.db
+
 
 def close_db(e=None):
     db = g.pop('db', None)
@@ -22,34 +33,6 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
-@click.command('init-db')
-def init_db():
-    db = get_db()
-
-    with current_app.open_resource('schema.sql') as f:
-        db.execute(f.read().decode('utf8'))
-
 def init_app(app):
-    db.init_app(app)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(os.path.join(current_app.instance_path, 'flaskr.sqlite'))
     app.teardown_appcontext(close_db)
-    app.cli.add_command(init_db)
-
-def dump_sqlite_to_txt(db_filename, txt_filename):
-    engine = create_engine('sqlite:///{}'.format(db_filename))
-    connection = engine.connect()
-
-    tables = connection.execute("SELECT name FROM sqlite_master WHERE type='table';")
-    
-    with open(txt_filename, 'w') as f:
-        for table_name in tables:
-            f.write("Table: {}\n".format(table_name[0]))
-            result = connection.execute("SELECT * from {}".format(table_name[0]))
-            headers = [col for col in result.keys()]
-            f.write("\t".join(headers) + "\n")
-            rows = result.fetchall()
-            for row in rows:
-                f.write("\t".join(str(field) for field in row) + "\n")
-    
-    connection.close()
-
+    app.cli.add_command(init_db_command)
