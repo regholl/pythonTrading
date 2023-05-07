@@ -1,7 +1,7 @@
 # pythonTrading
 a way to trade and view stocks in the CLI
 
-###########################################################################################################################################################################
+####################################################################################################
 
 UPDATE 5/7: After talking with some more experienced friends, I am going to hold off on Docker until I am ready to deploy
   - deleted Portfolio class and related files, unnecessary since its just a list object of Stock objects
@@ -17,7 +17,7 @@ UPDATE 5/7: After talking with some more experienced friends, I am going to hold
     
   I will run tests on these to clean up the code and then after that, I will start tackling the functionality to connect the base python app to other programs.
   
-  ###########################################################################################################################################################################
+####################################################################################################
   
 
 UPDATE 4/30: Gonna start adding updates as a changelog here as well, full blog posts on my website
