@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PythonTrader</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #2142ab;
+    }
+    
+    .container {
+      text-align: center;
+      margin-top: 50px;
+    }
+    
+    .pythonTraderTitle {
+      color: black;
+      font-size: 39px;
+	  font-style: italic;
+    }
+    
+    .btn-form {
+      margin-top: 50px;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .btn-primary {
+      background-color: black;
+      color: white;
+      width: 100px;
+      height: 100px;
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+	<div class="pythonTraderTitle">
+		<h1>{{ title }}</h1>
+	</div>
+    <div class="btn-form">
+      <form method="post" action="/">
+        <input type="submit" value="Positions" name="positions" class="btn btn-primary">
+      </form>
+      <form method="post" action="/">
+        <input type="submit" value="Orders" name="orders" class="btn btn-primary">
+      </form>
+      <form method="post" action="/">
+        <input type="submit" value="Settings" name="settings" class="btn btn-primary">
+      </form>
+    </div>
+  </div>
+</body>
+</html>

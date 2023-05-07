@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>List of Positions</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #3958cf;
+    }
+    
+    .container {
+      text-align: center;
+      margin-top: 50px;
+      width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    h1 {
+      color: white;
+      font-size: 36px;
+      font-style: italic;
+    }
+    
+    ul {
+      list-style-type: none;
+      text-align: left;
+      color: white;
+      font-size: 18px;
+      padding: 0;
+    }
+    
+    li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- TO CHANGE THE TEXT, convert all positions with toString() and pass into a Jinja template
+            The command will look like render_template(name.html, positions=positions) and use:
+            <ul>
+                {% for position in positions %}
+                    <li>{{ position }}</li>
+                {% endfor %}
+            <ul>
+    -->
+    <h1>Positions</h1>
+    <ul>
+      <li>AAPL</li>
+      <li>AMD</li>
+      <li>ORGN</li>
+      <li>BRKB</li>
+      <li>STOCKS...</li>
+    </ul>
+  </div>
+</body>
+</html>
