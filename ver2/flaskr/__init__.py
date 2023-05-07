@@ -1,19 +1,16 @@
-import os
-
+import os, sqlite3
 from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
 
-from position import Position
-from order import Order
 
-import db
+from ver1.flaskr.position import Position
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_pyfile('config.py')
-
-    db = SQLAlchemy(app)
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+    )
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -27,12 +24,7 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-    
-    @app.route('/')
-    def homepage(): 
-        title = "PythonTrader"
-        return render_template('home.html', title=title)
-    
+
     # Homepage: Controlling the Buttons - Navigates to the Titled Page on the button
     @app.route('/', methods=['POST'])
     def ui_nav_buttons_hp(): # UI Navigation Buttons Homepage
@@ -59,9 +51,8 @@ def create_app(test_config=None):
                 pass
         else:
             return render_template('home.html')
-    
-    db.init_app(app)
-    with app.app_context():
-        db.create_all()
 
+    from . import db
+    db.init_app(app)
+    
     return app

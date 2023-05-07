@@ -14,8 +14,8 @@ CREATE TABLE users (
 
 CREATE TABLE securities (
   id INTEGER PRIMARY KEY,
-  symbol TEXT NOT NULL,
   name TEXT NOT NULL,
+  symbol TEXT NOT NULL,
   security_type TEXT NOT NULL,
   currency TEXT NOT NULL
 );

@@ -1,8 +1,21 @@
 #  Author: Trevor Rowland
 # 
 # A Class to Denote a Trade
+import flaskr.db as db
 
-class Order:
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    security_id = db.Column(db.Integer)
+    account_id = db.Column()
+    order_type = db.Column()
+    order_status = db.Column()
+    quantity = db.Column()
+    price = db.Column()
+    created_at = db.Column()
+    updated_at = db.Column()
+    
+
+
     def __init__(self, orderId, name, symbol, price, orderType, quantityData, stopData, orderStatusData, enteredTime, closeTime, assetType):
         self.order_id = orderId
         self.name = name

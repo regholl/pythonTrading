@@ -4,10 +4,8 @@ import click
 from flask import current_app, g
 
 from flask_sqlalchemy import SQLAlchemy
+from __init__ import db
 
-from flaskr.classes import position as p
-
-db = SQLAlchemy()
 
 def add_position_to_db(position):
     db.session.add(position)

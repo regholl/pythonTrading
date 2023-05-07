@@ -26,11 +26,13 @@
     - industry
     - style
 """
-import flaskr.db as db
+import db
 import csv
 
 class Position(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
+	security_id = db.Column(db.Integer)
+	account_id = db.Column(db.Integer)
 	name = db.Column(db.String(100))
 	symbol = db.Column(db.String(10))
 	date = db.Column(db.Date)
