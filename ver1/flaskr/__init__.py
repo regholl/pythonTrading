@@ -34,7 +34,14 @@ def create_app(test_config=None):
         if request.method == 'POST': 
             if request.form.get('positions') == 'Positions': # Positions Button
                 print('position_button')
-                return render_template('positions.html')
+                # add code to pull all positions from sql, then...
+                """
+                positions_list = list()
+                for all positions in TABLE:(for p in positions)
+                    positions_list.append(p.to_string())
+                """
+                return render_template('positions.html'""", positions=positions_list""")
+            
             elif request.form.get('orders') == 'Orders': # Orders Button
                 print('order_button')
                 return render_template('orders.html')
