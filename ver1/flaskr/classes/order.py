@@ -2,7 +2,7 @@
 # 
 # A Class to Denote a Trade
 
-class Trade:
+class Order:
     def __init__(self, orderId, name, symbol, price, orderType, quantityData, stopData, orderStatusData, enteredTime, closeTime, assetType):
         self.order_id = orderId
         self.name = name

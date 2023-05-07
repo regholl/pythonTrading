@@ -26,10 +26,29 @@
     - industry
     - style
 """
-
+import flaskr.db as db
 import csv
 
-class Position:
+class Position(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(100))
+	symbol = db.Column(db.String(10))
+	date = db.Column(db.Date)
+	pps = db.Column(db.Float)
+	ns = db.Column(db.Integer)
+	tv = db.Column(db.Float)
+	pp = db.Column(db.Float)
+	dpla = db.Column(db.Float)
+	dplp = db.Column(db.Float)
+	tpla = db.Column(db.Float)
+	tplp = db.Column(db.Float)
+	pe = db.Column(db.Float)
+	eps = db.Column(db.Float)
+	de = db.Column(db.Float)
+	sector = db.Column(db.String(100))
+	industry = db.Column(db.String(100))
+	style = db.Column(db.String(100))
+
 	def __init__(self, name, symbol, date, pps, ns, tv, pp, dpla, dplp, tpla, tplp, pe, eps, de, sector, industry, style): # use a DS with keys for the parameter data
 		# This is included in the old program
 		self.symbol = symbol # Ticker Symbol
@@ -51,6 +70,11 @@ class Position:
 		self.sector = sector
 		self.industry = industry
 		self.style = style
+
+	def get_position_from_db(position_id):
+		return Position.query.get(position_id)
+
+
 
 	def to_string(self):
 		ret = ''

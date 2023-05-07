@@ -2,13 +2,17 @@ import os
 
 from flask import Flask, render_template, request
 
+from flaskr.classes.position import Position
+from flaskr.classes.order import Order
+import flaskr.db
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        SQLALCHEMY_DATABASE_URI='sqlite:///flaskr.db',
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
     )
 
     if test_config is None:
@@ -34,18 +38,19 @@ def create_app(test_config=None):
     def ui_nav_buttons_hp(): # UI Navigation Buttons Homepage
         if request.method == 'POST': 
             if request.form.get('positions') == 'Positions': # Positions Button
-                print('position_button')
                 # add code to pull all positions from sql, then...
                 """
                 positions_list = list()
                 for all positions in TABLE:(for p in positions)
                     positions_list.append(p.to_string())
                 """
-                return render_template('positions.html'""", positions=positions_list""")
+                positions_list = Position.query.all()
+                return render_template('positions.html', positions=positions_list)
             
             elif request.form.get('orders') == 'Orders': # Orders Button
                 print('order_button')
-                return render_template('orders.html')
+                orders_list = Order.query.all()
+                return render_template('orders.html', orders=orders_list)
             elif request.form.get('settings') == 'Settings':
                 print('settings_button')
                 return render_template('settings.html')
@@ -55,7 +60,8 @@ def create_app(test_config=None):
         else:
             return render_template('home.html')
     
-    from . import db
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
 
     return app

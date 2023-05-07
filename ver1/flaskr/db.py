@@ -3,7 +3,22 @@ import click
 
 from flask import current_app, g
 
-def init_db():
+from flask_sqlalchemy import SQLAlchemy
+
+from flaskr.classes import position as p
+
+db = SQLAlchemy()
+
+def add_position_to_db(position):
+    db.session.add(position)
+    db.session.commit()
+
+def get_all_positions_from_db():
+    return p.Position.query.all()
+
+
+""" DEPRECATED, ONLY WORKS WITH SQLITE3
+    def init_db():
     db = get_db()
 
     with current_app.open_resource('schema.sql') as f:
@@ -12,7 +27,7 @@ def init_db():
 
 @click.command('init-db')
 def init_db_command():
-    """Clear the existing data and create new tables."""
+    "/"/"/Clear the existing data and create new tables."/"/"/
     init_db()
     click.echo('Initialized the database.')
 
@@ -40,4 +55,4 @@ def init_app(app):
 def add_to_db(tableName, obj):
     query = ''
     
-    return
+    return"""
