@@ -16,6 +16,13 @@ class Portfolio:
             ret += s.to_string() + '\n\n'
         
         return ret
+    
+    def to_stringed_list(self):
+        to_ret = list()
+        for s in self.stocks:
+            to_ret.append(s.to_string())
+
+        return to_ret
 
     def to_excel(self, csv_file):
         

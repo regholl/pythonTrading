@@ -26,7 +26,8 @@ def create_app(test_config=None):
     
     @app.route('/')
     def homepage(): 
-        return render_template('home.html')
+        title = "PythonTrader"
+        return render_template('home.html', title=title)
     
     # Homepage: Controlling the Buttons - Navigates to the Titled Page on the button
     @app.route('/', methods=['POST'])
