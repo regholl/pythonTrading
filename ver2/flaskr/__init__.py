@@ -1,5 +1,8 @@
 import os, sqlite3
 from flask import Flask, render_template, request
+from flaskr.order import Order
+
+from flaskr.position import Position
 
 
 
@@ -23,6 +26,12 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
+    # Homepage: GET
+    @app.route('/')
+    def homepage(): 
+        title = "PythonTrader"
+        return render_template('home.html', title=title)
 
     # Homepage: Controlling the Buttons - Navigates to the Titled Page on the button
     @app.route('/', methods=['POST'])
