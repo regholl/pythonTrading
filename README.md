@@ -7,10 +7,9 @@ Going to focus on Frontend Development for now and go back to SQL when the rest 
 
   + cleaned up unnecessary files from the repo using gitignore
   + initializing GET request was broken, site works again
-
-  I took a look at the SQLAlchemy tutorial again and ran it in the Python interpreter, I think I have a better idea of where I messed up and can fix it. Going to take another stab at it.
-  
   - Deleted as many non-source files as possible, removing txts is next
+
+  I took a look at the SQLAlchemy tutorial again and ran it in the Python interpreter, I think I have a better idea of where I messed up and can fix it. Going to take another stab at it when I have a day or 2 I can consistently work on it, and I think I'll repurpose /ver1/ to be a stripped down version of the app with Security.py and then a stripped-back app that operates on that .py file
 
 # UPDATE 5/7: 
 
