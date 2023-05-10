@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 
+# comment to test gitignore
 
 ######################## MAIN START #############################################################################################################################
 app = Flask(__name__)
