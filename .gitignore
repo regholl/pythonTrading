@@ -9,7 +9,9 @@ __pycache__/
 # CONFIG FILES
 ver2/flaskr/config/
 *.py
-.DS_Store
+
+# DSSTORES
+git rm --cached .DS_Store
 
 
 
