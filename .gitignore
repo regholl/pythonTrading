@@ -142,4 +142,15 @@ dmypy.json
 .pyre/
 
 # CONFIG FILES
-ver2/flaskr/config/
+.DS_Store
+code/.DS_Store
+code/old_proj/.DS_Store
+code/documentation/.DS_Store
+
+code/ver1/flaskr/config.py
+code/ver1/flaskr/token
+code/ver1/flaskr/__pycache__
+
+code/ver2/flaskr/config/config.py
+code/ver2/flaskr/config/token
+code/ver2/flaskr/__pycache__
