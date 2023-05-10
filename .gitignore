@@ -142,4 +142,4 @@ dmypy.json
 .pyre/
 
 # CONFIG FILES
-flaskr/config/
+/ver2/flaskr/config/
