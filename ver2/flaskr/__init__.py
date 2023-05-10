@@ -1,14 +1,21 @@
+# SOF #####################################################
+
+## Imports
 import os, sqlite3
+## Flask
 from flask import Flask, render_template, request
 from flaskr.order import Order
-
 from flaskr.position import Position
+### Flask-SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
-
+## CREATE APP #############################################
 
 def create_app(test_config=None):
-    # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
+
+### APP CREATION ##########################################
+
+    app = Flask(__name__, instance_relative_config=True) # create and configure the appz
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
@@ -26,6 +33,19 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
+### APP CREATION END ######################################
+
+### DB FUNCTIONS ##########################################
+
+    from . import db
+    db.init_app(app)
+    
+    return app
+
+### DB FUNCTIONS END ######################################
+    
+### HTTPS REQUESTS ########################################
 
     # Homepage: GET
     @app.route('/')
@@ -59,8 +79,7 @@ def create_app(test_config=None):
                 pass
         else:
             return render_template('home.html')
-
-    from . import db
-    db.init_app(app)
-    
-    return app
+        
+### HTTPS REQUESTS END ####################################
+## CREATE APP END #########################################
+# EOF #####################################################
