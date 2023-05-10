@@ -17,16 +17,17 @@
     }
     
     h1 {
-      color: white;
-      font-size: 36px;
+      text-align: center;
+      color: black;
+      font-size: 39px;
       font-style: italic;
     }
     
     ul {
       list-style-type: none;
       text-align: left;
-      color: white;
-      font-size: 18px;
+      color: black;
+      font-size: 20px;
       padding: 0;
     }
     
@@ -47,11 +48,9 @@
     -->
     <h1>Positions</h1>
     <ul>
-      <li>AAPL</li>
-      <li>AMD</li>
-      <li>ORGN</li>
-      <li>BRKB</li>
-      <li>STOCKS...</li>
+      {% for p in portfolio.stocks %}
+        <li>{{ p.to_string() }}</li>
+      {% endfor %}
     </ul>
   </div>
 </body>
